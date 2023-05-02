@@ -1,23 +1,21 @@
-﻿using FluentOutput.Output;
+﻿using FluentOutput.ExpectationConstraint;
 
 namespace FluentOutput;
 /// <summary>
-/// Collection of extentions for <see cref="IResultOutput"/> for <see cref="bool"/> values.
+/// Collection of extentions for <see cref="IExpectationConstraint{T}"/> where the generic value is a <see cref="bool"/>.
 /// </summary>
 public static class BooleanWriters
 {
     /// <summary>
-    /// Writes output expecting <paramref name="actual"/> to be <see langword="true"/>.
+    /// Expects the actual value to be <see langword="true"/>.
     /// </summary>
-    /// <param name="output"><inheritdoc cref="DirectWriter.Result{T}(IResultOutput, T, T)" path="/param[@name='output']"/></param>
-    /// <param name="actual">The actual <see cref="bool"/>.</param>
-    public static void ExpectingTrue(this IResultOutput output, bool actual)
-        => output.WriteResult(true, actual);
+    /// <param name="expectationConstraint">The <see cref="bool"/> <see cref="IExpectationConstraint{T}"/> to write to.</param>
+    public static void ToBeTrue(this IExpectationConstraint<bool> expectationConstraint)
+        => expectationConstraint.ToBe(true);
     /// <summary>
-    /// Writes output expecting <paramref name="actual"/> to be <see langword="false"/>.
+    /// Expects the actual value to be <see langword="false"/>.
     /// </summary>
-    /// <param name="output"><inheritdoc cref="ExpectingTrue(IResultOutput, bool)" path="/param[@name='output']"/></param>
-    /// <param name="actual"><inheritdoc cref="ExpectingTrue(IResultOutput, bool)" path="/param[@name='actual']"/></param>
-    public static void ExpectingFalse(this IResultOutput output, bool actual)
-        => output.WriteResult(false, actual);
+    /// <param name="expectationConstraint"><inheritdoc cref="ToBeTrue(IExpectationConstraint{bool})" path="/param[@name='expectationConstraint']"/></param>
+    public static void ToBeFalse(this IExpectationConstraint<bool> expectationConstraint)
+        => expectationConstraint.ToBe(false);
 }
