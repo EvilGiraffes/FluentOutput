@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FluentOutput\FluentOutput.csproj" />
+  </ItemGroup>
+
 </Project>
