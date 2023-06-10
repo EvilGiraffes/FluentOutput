@@ -11,19 +11,17 @@ public sealed class ExpectationContext<T>
     readonly IFluentOutput output;
     readonly T actual;
     readonly IExpectationRendererFactory rendererFactory;
-    static IExpectationRendererFactory DefaultFactory
-        => new DoubleSeperatedExpectationFactory();
     /// <summary>
     /// Constructs a new <see cref="ExpectationContext{T}"/>.
     /// </summary>
     /// <param name="output">The output to write to.</param>
     /// <param name="actual">The actual value.</param>
-    /// <param name="rendererFactory">The renderer to use for output. Defaults to <see cref="DoubleSeperatedExpectationFactory"/>.</param>
+    /// <param name="rendererFactory">The renderer to use for output. <inheritdoc cref="ExpectationContextConfig.DefaultFactory" path="/value"/></param>
     public ExpectationContext(IFluentOutput output, T actual, IExpectationRendererFactory? rendererFactory = null)
     {
         this.output = output;
         this.actual = actual;
-        this.rendererFactory = rendererFactory ?? DefaultFactory;
+        this.rendererFactory = rendererFactory ?? ExpectationContextConfig.DefaultFactory;
     }
     /// <summary>
     /// Writes the expectation to the output.
