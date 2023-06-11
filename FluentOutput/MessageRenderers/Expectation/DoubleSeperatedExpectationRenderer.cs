@@ -1,8 +1,6 @@
-﻿using FluentOutput.Contexts;
-
-namespace FluentOutput.MessageRenderers.Expectation;
+﻿namespace FluentOutput.MessageRenderers.Expectation;
 /// <summary>
-/// Represents a <see cref="IMessageRenderer"/> which works in conjunction with an <see cref="ExpectationContext{T}"/>.
+/// Represents a <see cref="IMessageRenderer"/> which creates an output based on an expectancy and an actual value.
 /// </summary>
 public sealed class DoubleSeperatedExpectationRenderer : IMessageRenderer
 {

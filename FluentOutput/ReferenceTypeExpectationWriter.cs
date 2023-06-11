@@ -2,7 +2,7 @@
 
 namespace FluentOutput;
 /// <summary>
-/// Uses <see cref="ExpectationContext{T}"/> to write to the output for values related to any object where it is a class.
+/// Uses <see cref="IExpectationContext{T}"/> to write to the output for values related to any object where it is a class.
 /// </summary>
 /// <typeparam name="TContext">The current type of object used.</typeparam>
 /// <typeparam name="TWriter">The type of writer being used.</typeparam>
@@ -12,14 +12,14 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     /// <summary>
     /// The current context being utilized.
     /// </summary>
-    protected ExpectationContext<TContext> Context { get; }
+    protected IExpectationContext<TContext> Context { get; }
     const string Null = "Null";
     const string NotNull = "Not " + Null;
     /// <summary>
     /// Creates a new instance of a <see cref="ReferenceTypeExpectationWriter{TContext, TWriter}"/>.
     /// </summary>
     /// <param name="context">The context which this expectation is built on.</param>
-    protected ReferenceTypeExpectationWriter(ExpectationContext<TContext> context)
+    protected ReferenceTypeExpectationWriter(IExpectationContext<TContext> context)
     {
         Context = context;
     }
@@ -39,7 +39,7 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     /// <returns><inheritdoc cref="ToBe(TContext)" path="/returns"/></returns>
     public AndContext<TWriter> ToBeNull()
     {
-        ExpectationContext<string> nullContext = Context.Map(NullTransform);
+        IExpectationContext<string> nullContext = Context.Map(NullMap);
         nullContext.Render(Null);
         return (TWriter) this;
     }
@@ -49,7 +49,7 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     /// <returns><inheritdoc cref="ToBe(TContext)" path="/returns"/></returns>
     public AndContext<TWriter> ToNotBeNull()
     {
-        ExpectationContext<string> nullContext = Context.Map(NullTransform);
+        IExpectationContext<string> nullContext = Context.Map(NullMap);
         nullContext.Render(NotNull);
         return (TWriter) this;
     }
@@ -60,7 +60,7 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     /// <returns><inheritdoc cref="ToBe(TContext)" path="/returns"/></returns>
     public AndContext<TWriter> ToBeOfType<T>()
     {
-        ExpectationContext<Type?> typeContext = Context.Map(value => value?.GetType());
+        IExpectationContext<Type?> typeContext = Context.Map(value => value?.GetType());
         typeContext.Render(typeof(T));
         return (TWriter) this;
     }
@@ -71,14 +71,14 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     /// <returns><inheritdoc cref="ToBe(TContext)" path="/returns"/></returns>
     public AndContext<TWriter> ToNotBeOfType<T>()
     {
-        ExpectationContext<string> typeContext = Context.Map(value => TypeTransform(value?.GetType()));
-        string expected = $"Not {TypeTransform(typeof(T))}";
+        IExpectationContext<string> typeContext = Context.Map(value => TypeMap(value?.GetType()));
+        string expected = $"Not {TypeMap(typeof(T))}";
         return (TWriter) this;
     }
-    string NullTransform(TContext obj)
+    string NullMap(TContext obj)
         => obj is null
         ? Null
         : NotNull;
-    string TypeTransform(Type? type)
+    string TypeMap(Type? type)
         => type?.Name ?? Null;
 }

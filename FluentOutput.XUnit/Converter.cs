@@ -1,12 +1,10 @@
-﻿using FluentOutput.Adapters;
+﻿using Xunit.Abstractions;
 
-using Xunit.Abstractions;
-
-namespace FluentOutput;
+namespace FluentOutput.XUnit;
 /// <summary>
-/// Collection of extention methods to adapt various test outputs to <see cref="IFluentOutput"/>.
+/// Converts <see cref="ITestOutputHelper"/> to <see cref="IFluentOutput"/>.
 /// </summary>
-public static class FluentOutputConverter
+public static class Converter
 {
     /// <summary>
     /// Adapts <see cref="ITestOutputHelper"/> to <see cref="IFluentOutput"/>.

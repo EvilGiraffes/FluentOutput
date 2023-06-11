@@ -1,6 +1,7 @@
 ﻿using FluentOutput.Contexts;
 using FluentOutput.MessageRenderers;
 using FluentOutput.MessageRenderers.Expectation;
+using FluentOutput.Sdk;
 
 namespace FluentOutput;
 /// <summary>
@@ -14,9 +15,9 @@ public static class ExpectationAttachment
     /// <typeparam name="T">The type being tested.</typeparam>
     /// <param name="output">The output to write to in the end of the line.</param>
     /// <param name="actual">The actual value.</param>
-    /// <returns>An <see cref="ExpectationContext{T}"/> for further processing.</returns>
-    public static ExpectationContext<T> Expecting<T>(this IFluentOutput output, T actual)
-        => new(output, actual);
+    /// <returns>An <see cref="IExpectationContext{T}"/> for further processing.</returns>
+    public static IExpectationContext<T> Expecting<T>(this IFluentOutput output, T actual)
+        => ExpectationContext.Create(output, actual);
     /// <summary>
     /// Attaches an <see cref="IExpectationRendererFactory"/> which creates a <see cref="IMessageRenderer"/> to control the formatting of the output.
     /// </summary>

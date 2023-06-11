@@ -6,13 +6,7 @@ namespace FluentOutput;
 /// </summary>
 public sealed class ObjectExpectationWriter : ReferenceTypeExpectationWriter<object?, ObjectExpectationWriter>
 {
-    /// <summary>
-    /// Constructs a new <see cref="ObjectExpectationWriter"/>.
-    /// </summary>
-    /// <param name="context"><inheritdoc 
-    /// cref="ReferenceTypeExpectationWriter{TContext, TWriter}.ReferenceTypeExpectationWriter(ExpectationContext{TContext})" 
-    /// path="/param[@name='context']"/></param>
-    public ObjectExpectationWriter(ExpectationContext<object?> context) : base(context)
+    internal ObjectExpectationWriter(IExpectationContext<object?> context) : base(context)
     {
     }
 }

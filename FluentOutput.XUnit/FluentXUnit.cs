@@ -2,7 +2,7 @@
 
 using Xunit.Abstractions;
 
-namespace FluentOutput.Adapters;
+namespace FluentOutput.XUnit;
 /// <summary>
 /// An adapter from <see cref="ITestOutputHelper"/> to <see cref="IFluentOutput"/>
 /// </summary>
