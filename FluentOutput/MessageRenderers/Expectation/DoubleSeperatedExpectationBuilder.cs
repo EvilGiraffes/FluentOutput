@@ -24,8 +24,8 @@ public sealed class DoubleSeperatedExpectationBuilder : IBuilder<DoubleSeperated
     string? expected = default;
     char? valueSeperator = default;
     string? lineSeperator = default;
-    internal const char defaultValueSeperator = ';';
-    internal static readonly string defaultLineSeperator = Environment.NewLine;
+    internal static string DefaultLineSeperator { get; } = Environment.NewLine;
+    internal const char DefaultValueSeperator = ';';
     internal DoubleSeperatedExpectationBuilder()
     {
     }
@@ -76,8 +76,8 @@ public sealed class DoubleSeperatedExpectationBuilder : IBuilder<DoubleSeperated
             ThrowBuildMemberNull(nameof(actual));
         if (expected is null)
             ThrowBuildMemberNull(nameof(expected));
-        valueSeperator ??= defaultValueSeperator;
-        lineSeperator ??= defaultLineSeperator;
+        valueSeperator ??= DefaultValueSeperator;
+        lineSeperator ??= DefaultLineSeperator;
         return new DoubleSeperatedExpectationRenderer(actual, expected, (char) valueSeperator, lineSeperator);
     }
     [DoesNotReturn]

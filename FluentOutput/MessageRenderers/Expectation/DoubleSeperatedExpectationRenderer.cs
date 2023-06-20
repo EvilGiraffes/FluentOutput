@@ -23,5 +23,5 @@ public sealed class DoubleSeperatedExpectationRenderer : IMessageRenderer
     }
     /// <inheritdoc/>
     public string Render()
-        => string.Format(Format, expected, valueSeperator, lineSeperator, actual);
+        => string.Format(Format, valueSeperator, expected, lineSeperator, actual);
 }

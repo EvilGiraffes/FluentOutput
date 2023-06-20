@@ -9,29 +9,36 @@ static class ITestOutputExt
     const string Actual = "Actual";
     const string Null = "Null";
     const string Empty = "Empty String";
-    public static void Result<T>(this ITestOutputHelper output, T actual, T expected)
-        => output.WriteLine(FormatOutput(actual, expected));
-    static string FormatOutput<T>(T actual, T expected)
+    public static void Result<T>(this ITestOutputHelper output, T actual, T expected, Func<T, string?>? transform = null)
     {
-        string actualString = CreateStringFrom(actual);
-        string expectedString = CreateStringFrom(expected);
-        int valueLength = Math.Max(actualString.Length, expectedString.Length);
+        transform ??= DefaultTransform;
+        string actualString = EnsureRepresentation(
+            transform(actual));
+        string expectedString = EnsureRepresentation(
+            transform(expected));
+        output.WriteLine(
+            FormatOutput(actualString, expectedString));
+    }
+    static string? DefaultTransform<T>(T obj)
+        => obj?.ToString();
+    static string EnsureRepresentation(string? value)
+    {
+        if (value is null)
+            return Null;
+        if (value.Length < 1)
+            return Empty;
+        return value;
+    }
+    static string FormatOutput(string actual, string expected)
+    {
+        int valueLength = Math.Max(actual.Length, expected.Length);
         string format = BuildFormat(valueLength);
         StringBuilder builder = new();
         builder
-            .AppendFormat(format, Expected, expectedString)
+            .AppendFormat(format, Expected, expected)
             .AppendLine()
-            .AppendFormat(format, Actual, actualString);
+            .AppendFormat(format, Actual, actual);
         return builder.ToString();
-    }
-    static string CreateStringFrom<T>(T value)
-    {
-        string? valueString = value?.ToString();
-        if (valueString is null)
-            return Null;
-        if (valueString.Length <= 0)
-            return Empty;
-        return valueString;
     }
     static string BuildFormat(int valueLength)
     {

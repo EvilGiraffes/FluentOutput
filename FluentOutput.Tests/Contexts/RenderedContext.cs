@@ -4,13 +4,13 @@ using FluentOutput.MessageRenderers.Expectation;
 using FluentOutput.Transforms;
 
 namespace FluentOutput.Tests.Contexts;
-public sealed class ExpectationContextTests
+public sealed class RenderedContextTests
 {
     readonly ITestOutputHelper output;
     readonly Mock<IFluentOutput> fluentOutputMock;
     readonly Mock<IExpectationRendererFactory> rendererFactoryMock;
     readonly Mock<IMessageRenderer> rendererMock;
-    public ExpectationContextTests(ITestOutputHelper output)
+    public RenderedContextTests(ITestOutputHelper output)
     {
         this.output = output;
         fluentOutputMock = new();
@@ -30,7 +30,7 @@ public sealed class ExpectationContextTests
             .Callback(
                 (string interceptedActual, string interceptedExpected)
                 => actual = $"{interceptedActual} {interceptedExpected}");
-        ExpectationRenderFactoryContext<int> systemUnderTest = CreateContext(actualValue);
+        RenderedContext<int> systemUnderTest = CreateContext(actualValue);
         systemUnderTest.Render(expectedValue);
         output.Result(actual, expected);
         actual.Should().Be(expected);
@@ -53,7 +53,7 @@ public sealed class ExpectationContextTests
             .Callback(
                 (string interceptedActual, string interceptedExpected)
                 => actual = $"{interceptedActual} {interceptedExpected}");
-        ExpectationRenderFactoryContext<int> systemUnderTest = CreateContext(actualValue);
+        RenderedContext<int> systemUnderTest = CreateContext(actualValue);
         systemUnderTest.Render(expectedValue, transformMock.Object);
         output.Result(actual, expected);
         actual.Should().Be(expected);
@@ -69,11 +69,11 @@ public sealed class ExpectationContextTests
             .Callback(
                 (string interceptedActual, string interceptedExpected)
                 => actual = $"{interceptedActual} {interceptedExpected}");
-        ExpectationRenderFactoryContext<object?> systemUnderTest = CreateContext<object?>(null);
+        RenderedContext<object?> systemUnderTest = CreateContext<object?>(null);
         systemUnderTest.Render(null);
         output.Result(actual, expected);
         actual.Should().Be(expected);
     }
-    ExpectationRenderFactoryContext<T> CreateContext<T>(T actual)
+    RenderedContext<T> CreateContext<T>(T actual)
         => new(fluentOutputMock.Object, actual, rendererFactoryMock.Object);
 }

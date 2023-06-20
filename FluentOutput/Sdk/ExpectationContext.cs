@@ -16,5 +16,5 @@ public static class ExpectationContext
     /// <param name="rendererFactory"><inheritdoc cref="IExpectationContext{T}" path="/param[@name='rendererFactory']"/></param>
     /// <returns></returns>
     public static IExpectationContext<T> Create<T>(IFluentOutput output, T actual, IExpectationRendererFactory? rendererFactory = null)
-        => new ExpectationRenderFactoryContext<T>(output, actual, rendererFactory);
+        => new RenderedContext<T>(output, actual, rendererFactory);
 }

@@ -1,5 +1,4 @@
-﻿using FluentOutput.Config;
-using FluentOutput.Transforms;
+﻿using FluentOutput.Transforms;
 
 namespace FluentOutput.Sdk;
 /// <summary>
@@ -14,12 +13,7 @@ public static class ITransformExt
     /// <param name="transform">The transform to ensure is not null.</param>
     /// <returns><paramref name="transform"/> if not <see langword="null"/>, the default <see cref="ITransform{T}"/> if <see langword="null"/>.</returns>
     public static ITransform<T> OrDefault<T>(this ITransform<T>? transform)
-    {
-        if (transform is not null)
-            return transform;
-        return FluentOutputConfigurations
-            .Options
-            .DefaultTransformFactory
-            .Create<T>();
-    }
+        => transform is null
+        ? Transform.Default<T>()
+        : transform;
 }

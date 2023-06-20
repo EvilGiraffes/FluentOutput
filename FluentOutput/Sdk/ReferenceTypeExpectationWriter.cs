@@ -1,6 +1,6 @@
 ﻿using FluentOutput.Contexts;
 
-namespace FluentOutput;
+namespace FluentOutput.Sdk;
 /// <summary>
 /// Uses <see cref="IExpectationContext{T}"/> to write to the output for values related to any object where it is a class.
 /// </summary>
@@ -73,6 +73,7 @@ public abstract class ReferenceTypeExpectationWriter<TContext, TWriter>
     {
         IExpectationContext<string> typeContext = Context.Map(value => TypeMap(value?.GetType()));
         string expected = $"Not {TypeMap(typeof(T))}";
+        typeContext.Render(expected);
         return (TWriter) this;
     }
     string NullMap(TContext obj)

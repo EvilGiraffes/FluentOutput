@@ -12,11 +12,11 @@ public class DoubleSeperatedExpectationFactory : IExpectationRendererFactory
     /// <param name="valueSeperator"><inheritdoc cref="DoubleSeperatedExpectationBuilder.ValueSeperator(char)" path="/param[@name='valueSeperator']"/></param>
     /// <param name="lineSeperator"><inheritdoc cref="DoubleSeperatedExpectationBuilder.LineSeperator(string)" path="/param[@name='lineSeperator']"/></param>
     public DoubleSeperatedExpectationFactory(
-        char valueSeperator = DoubleSeperatedExpectationBuilder.defaultValueSeperator,
+        char valueSeperator = DoubleSeperatedExpectationBuilder.DefaultValueSeperator,
         string? lineSeperator = null)
     {
         this.valueSeperator = valueSeperator;
-        this.lineSeperator = lineSeperator ?? DoubleSeperatedExpectationBuilder.defaultLineSeperator;
+        this.lineSeperator = lineSeperator ?? DoubleSeperatedExpectationBuilder.DefaultLineSeperator;
     }
     /// <inheritdoc/>
     public IMessageRenderer Create(string actual, string expected)

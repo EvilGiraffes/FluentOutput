@@ -3,7 +3,7 @@
 namespace FluentOutput.MessageRenderers.Expectation;
 // TODO: Convert to this.
 /// <summary>
-/// Represents a factory to create a renderer for a <see cref="ExpectationRenderFactoryContext{T}"/>.
+/// Represents a factory to create a renderer for a <see cref="RenderedContext{T}"/>.
 /// </summary>
 public interface IExpectationRendererFactory
 {
