@@ -1,4 +1,6 @@
-﻿namespace FluentOutput.MessageRenderers.String;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.MessageRenderers.String;
 sealed class StringRenderer : IMessageRenderer
 {
     readonly string message;

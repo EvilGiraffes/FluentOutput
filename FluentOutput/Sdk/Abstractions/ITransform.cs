@@ -1,4 +1,4 @@
-﻿namespace FluentOutput.Transforms;
+﻿namespace FluentOutput.Sdk.Abstractions;
 /// <summary>
 /// Represents a strategy to transform <typeparamref name="T"/> to <see cref="string"/>.
 /// </summary>

@@ -1,4 +1,5 @@
 ﻿using FluentOutput.Errors;
+
 namespace FluentOutput;
 interface IBuilder<T>
 {

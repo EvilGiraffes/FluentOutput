@@ -1,17 +1,19 @@
-﻿namespace FluentOutput.MessageRenderers.Expectation;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.MessageRenderers.Expectation;
 /// <summary>
 /// Represents a factory for <see cref="DoubleSeperatedExpectationRenderer"/>.
 /// </summary>
-public class DoubleSeperatedExpectationFactory : IExpectationRendererFactory
+public class DoubleSeperatedExpectationFormatter : IExpectationFormatter
 {
     readonly char valueSeperator;
     readonly string lineSeperator;
     /// <summary>
-    /// Constructs a new instance of <see cref="DoubleSeperatedExpectationFactory"/>.
+    /// Constructs a new instance of <see cref="DoubleSeperatedExpectationFormatter"/>.
     /// </summary>
     /// <param name="valueSeperator"><inheritdoc cref="DoubleSeperatedExpectationBuilder.ValueSeperator(char)" path="/param[@name='valueSeperator']"/></param>
     /// <param name="lineSeperator"><inheritdoc cref="DoubleSeperatedExpectationBuilder.LineSeperator(string)" path="/param[@name='lineSeperator']"/></param>
-    public DoubleSeperatedExpectationFactory(
+    public DoubleSeperatedExpectationFormatter(
         char valueSeperator = DoubleSeperatedExpectationBuilder.DefaultValueSeperator,
         string? lineSeperator = null)
     {
@@ -19,7 +21,7 @@ public class DoubleSeperatedExpectationFactory : IExpectationRendererFactory
         this.lineSeperator = lineSeperator ?? DoubleSeperatedExpectationBuilder.DefaultLineSeperator;
     }
     /// <inheritdoc/>
-    public IMessageRenderer Create(string actual, string expected)
+    public IMessageRenderer Build(string actual, string expected)
         => DoubleSeperatedExpectationRenderer.Builder
         .Actual(actual)
         .Expected(expected)

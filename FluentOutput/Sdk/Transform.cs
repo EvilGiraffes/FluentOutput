@@ -1,20 +1,20 @@
 ﻿using FluentOutput.Config;
-using FluentOutput.Transforms;
+using FluentOutput.Sdk.Abstractions;
 
 namespace FluentOutput.Sdk;
 /// <summary>
-/// A helper class to provide <see cref="ITransform{T}"/> functionalities.
+/// API for <see cref="ITransform{T}"/>.
 /// </summary>
 public static class Transform
 {
     /// <summary>
-    /// Creates the default <see cref="ITransform{T}"/> as defined by the configurations.
+    /// Creates the current <see cref="ITransform{T}"/> as defined by the configurations.
     /// </summary>
     /// <typeparam name="T"><inheritdoc cref="ITransform{T}" path="/typeparam"/></typeparam>
-    /// <returns>A new instance of the default <see cref="ITransform{T}"/>.</returns>
-    public static ITransform<T> Default<T>()
+    /// <returns>A new instance of <see cref="ITransform{T}"/> from the current <see cref="ITransformFactory"/>.</returns>
+    public static ITransform<T> Current<T>()
         => FluentOutputConfigurations
         .Options
-        .DefaultTransformFactory
+        .TransformFactory
         .Create<T>();
 }

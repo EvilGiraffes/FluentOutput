@@ -1,4 +1,4 @@
-﻿using FluentOutput.MessageRenderers;
+﻿using FluentOutput.Sdk.Abstractions;
 
 using NUnit.Framework;
 

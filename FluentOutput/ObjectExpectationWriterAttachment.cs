@@ -1,22 +1,29 @@
-﻿using FluentOutput.Contexts;
-using FluentOutput.MessageRenderers.Expectation;
-using FluentOutput.Sdk;
+﻿using FluentOutput.Sdk;
+using FluentOutput.Sdk.Abstractions;
+using FluentOutput.Sdk.Abstractions.SectionWriters;
 
 namespace FluentOutput;
-
 /// <summary>
-/// Attaches the <see cref="ObjectExpectationWriter"/> as an expectation context.
+/// Attaches <see cref="ObjectExpectationWriter"/> as the expectation writer.
 /// </summary>
 public static class ObjectExpectationWriterAttachment
 {
     /// <summary>
-    /// Expectation context on <paramref name="actual"/> for further processing.
+    /// Sets an expectation for an expected value in later processing.
     /// </summary>
-    /// <param name="output"><inheritdoc cref="RenderedContext{T}" path="/param[@name='output']"/></param>
-    /// <param name="actual"><inheritdoc cref="RenderedContext{T}" path="/param[@name='actual']"/></param>
-    /// <param name="rendererFactory"><inheritdoc cref="RenderedContext{T}" path="/param[@name='rendererFactory']"/></param>
+    /// <param name="output">The output to render to.</param>
+    /// <param name="actual">The actual value.</param>
     /// <returns>A new <see cref="ObjectExpectationWriter"/> for further processing.</returns>
-    public static ObjectExpectationWriter Expecting(this IFluentOutput output, object? actual, IExpectationRendererFactory? rendererFactory = null)
-        => new(
-            ExpectationContext.Create(output, actual, rendererFactory));
+    public static ObjectExpectationWriter Expecting(this IFluentOutput output, object? actual)
+    {
+        IExpectationRenderHandler renderer = Expectation.Handler.Create(output);
+        INullabilityWriter nullabilityWriter = Expectation.SectionWriter.NullabilityWriter(actual, renderer);
+        ITypeWriter typeWriter = Expectation.SectionWriter.TypeWriter(actual, renderer);
+        return new ObjectExpectationWriterBuilder()
+            .Actual(actual)
+            .Renderer(renderer)
+            .NullabilityWriter(nullabilityWriter)
+            .TypeWriter(typeWriter)
+            .Build();
+    }
 }

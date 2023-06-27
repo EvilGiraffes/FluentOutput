@@ -1,4 +1,6 @@
-﻿namespace FluentOutput.MessageRenderers.Expectation;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.MessageRenderers.Expectation;
 /// <summary>
 /// Represents a <see cref="IMessageRenderer"/> which creates an output based on an expectancy and an actual value.
 /// </summary>

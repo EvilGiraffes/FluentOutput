@@ -1,4 +1,6 @@
-﻿namespace FluentOutput.Transforms;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.Transforms;
 /// <summary>
 /// Represents an <see cref="ITransform{T}"/> which will output a <see cref="string"/> representing the value, and a string representing <see langword="null"/> or empty if there is no value.
 /// </summary>

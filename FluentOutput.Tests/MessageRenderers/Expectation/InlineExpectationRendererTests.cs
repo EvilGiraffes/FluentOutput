@@ -26,4 +26,22 @@ public sealed class InlineExpectationRendererTests
         });
         actual.Should().Be(expected);
     }
+    [Theory]
+    [InlineData(0)]
+    [InlineData(int.MaxValue)]
+    public void Ctor_ValidCushion_NoException(int cushion)
+    {
+        Action act = () => _ = Create(cushion);
+        act.Should().NotThrow();
+    }
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(int.MinValue)]
+    public void Ctor_InvalidCushion_Exception(int cushion)
+    {
+        Action act = () => _ = Create(cushion);
+        act.Should().Throw<ArgumentOutOfRangeException>();
+    }
+    static InlineExpectationRenderer Create(int cushion)
+        => new(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), cushion);
 }

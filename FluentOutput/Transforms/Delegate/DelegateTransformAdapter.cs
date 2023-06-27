@@ -1,4 +1,6 @@
-﻿namespace FluentOutput.Transforms.Delegate;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.Transforms.Delegate;
 sealed class DelegateTransformAdapter<T> : ITransform<T>
 {
     readonly Func<T, string> adapted;

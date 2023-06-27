@@ -1,11 +1,10 @@
-﻿using FluentOutput.MessageRenderers;
-using FluentOutput.MessageRenderers.Expectation;
+﻿using FluentOutput.Sdk.Abstractions;
 
 using Moq.Language.Flow;
 
 namespace FluentOutput.Tests.Internals;
 static class IExpectationFactoryMockExt
 {
-    public static ISetup<IExpectationRendererFactory, IMessageRenderer> SetupCreate(this Mock<IExpectationRendererFactory> factoryMock)
-        => factoryMock.Setup(factory => factory.Create(It.IsAny<string>(), It.IsAny<string>()));
+    public static ISetup<IExpectationFormatter, IMessageRenderer> SetupCreate(this Mock<IExpectationFormatter> factoryMock)
+        => factoryMock.Setup(factory => factory.Build(It.IsAny<string>(), It.IsAny<string>()));
 }

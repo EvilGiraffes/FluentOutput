@@ -1,4 +1,6 @@
-﻿namespace FluentOutput.Transforms;
+﻿using FluentOutput.Sdk.Abstractions;
+
+namespace FluentOutput.Transforms;
 /// <summary>
 /// Represents a factory to create <see cref="ITransform{T}"/>.
 /// </summary>

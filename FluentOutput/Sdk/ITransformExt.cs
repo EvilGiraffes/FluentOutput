@@ -1,4 +1,4 @@
-﻿using FluentOutput.Transforms;
+﻿using FluentOutput.Sdk.Abstractions;
 
 namespace FluentOutput.Sdk;
 /// <summary>
@@ -14,6 +14,6 @@ public static class ITransformExt
     /// <returns><paramref name="transform"/> if not <see langword="null"/>, the default <see cref="ITransform{T}"/> if <see langword="null"/>.</returns>
     public static ITransform<T> OrDefault<T>(this ITransform<T>? transform)
         => transform is null
-        ? Transform.Default<T>()
+        ? Transform.Current<T>()
         : transform;
 }
